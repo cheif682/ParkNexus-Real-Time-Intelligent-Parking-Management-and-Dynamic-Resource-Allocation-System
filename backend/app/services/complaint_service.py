@@ -1,4 +1,4 @@
-import random
+import secrets
 import string
 from datetime import datetime, timezone
 from typing import List, Optional
@@ -11,7 +11,7 @@ from app.services.audit_service import log_action, create_notification
 
 def generate_ticket_number() -> str:
     year = datetime.now(timezone.utc).strftime("%Y")
-    rand_seq = ''.join(random.choices(string.digits, k=5))
+    rand_seq = ''.join(secrets.choice(string.digits) for _ in range(5))
     return f"TKT-{year}-{rand_seq}"
 
 def create_complaint(db: Session, current_user: User, data: ComplaintCreate) -> Complaint:

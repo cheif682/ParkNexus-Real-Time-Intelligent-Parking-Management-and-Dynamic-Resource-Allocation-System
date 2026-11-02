@@ -133,8 +133,8 @@ def find_recommended_slot(
                 if num_part:
                     proximity = max(0, 10 - (int(num_part) % 15))
                     score += proximity
-            except Exception:
-                pass
+            except (ValueError, TypeError):
+                proximity = 0
 
             available_candidates.append((slot, score, reasons))
 

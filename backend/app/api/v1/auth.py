@@ -46,7 +46,7 @@ def login(credentials: UserLogin, db: Session = Depends(get_db)):
         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Account is disabled")
 
     access_token = create_access_token(subject=user.id)
-    return Token(access_token=access_token, token_type="bearer", user=user)
+    return Token(access_token=access_token, token_type="bearer", user=user)  # nosec B106
 
 @router.get("/me", response_model=UserResponse)
 def get_me(current_user: User = Depends(get_current_user)):

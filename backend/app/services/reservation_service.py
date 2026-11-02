@@ -1,5 +1,5 @@
 import uuid
-import random
+import secrets
 import string
 from datetime import datetime, timezone
 from typing import List, Optional
@@ -17,7 +17,8 @@ from app.services.audit_service import log_action, create_notification
 
 def generate_booking_reference() -> str:
     date_str = datetime.now(timezone.utc).strftime("%Y%m%d")
-    random_suffix = ''.join(random.choices(string.ascii_uppercase + string.digits, k=4))
+    alphabet = string.ascii_uppercase + string.digits
+    random_suffix = ''.join(secrets.choice(alphabet) for _ in range(4))
     return f"PN-{date_str}-{random_suffix}"
 
 def create_reservation(db: Session, current_user: User, data: ReservationCreate) -> Reservation:

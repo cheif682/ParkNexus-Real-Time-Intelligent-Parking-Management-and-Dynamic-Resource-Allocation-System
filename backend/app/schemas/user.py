@@ -7,8 +7,8 @@ try:
     import email_validator
     email_validator.CHECK_DELIVERABILITY = False
     email_validator.TEST_ENVIRONMENT = True
-except Exception:
-    pass
+except (ImportError, AttributeError):
+    email_validator = None
 
 EMAIL_PATTERN = r"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$"
 
